@@ -1,0 +1,118 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  /* padding: 2rem; */
+  text-align: center;
+}
+
+/* .logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+} */
+
+.App {
+  position: relative;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 2.4rem;
+  letter-spacing: 3px;
+}
+
+/*
+**********************
+      Game Score
+**********************
+*/
+.score {
+  font-weight: 700;
+  font-size: 1.3rem;
+  display: block;
+  margin-left: auto;
+  padding-right: 1rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: rgb(184, 178, 178);
+  transition: color 100ms ease-in-out;
+}
+
+/*
+********************
+     Color Box
+********************
+*/
+.color {
+  border-radius: 5px;
+  min-height: 250px;
+  min-width: 250px;
+  max-width: 500px;
+}
+
+/*
+****************************************
+    Answer options form/div container
+****************************************
+*/
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+.options button {
+  width: 7rem;
+}
+
+/*
+********************
+       Result
+********************
+*/
+.result {
+  font-weight: 600;
+  font-size: 2rem;
+}
+.correct {
+  color: rgb(19, 206, 19);
+}
+.wrong {
+  color: red;
+}
+
+/*
+********************
+    Reset button
+********************
+*/
+.reset {
+  position: absolute;
+  top: 44rem;
+  right: 2rem;
+  display: block;
+  margin-left: auto;
+}
