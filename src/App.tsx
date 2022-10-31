@@ -5,6 +5,7 @@ function App() {
   const [color, setColor] = useState<string>('')
   const [options, setOptions] = useState<string[]>([])
   const [userAnswer, setUserAnswer] = useState<string>('')
+  const answerOptionsRef = useRef<HTMLFormElement>(null)
   const [score, setScore] = useState(0)
   const scoreRef = useRef<HTMLParagraphElement>(null)
   const [result, setResult] = useState<JSX.Element | undefined>()
@@ -48,7 +49,6 @@ function App() {
     // if currently on dark theme -> switch to light theme
     if (darkTheme === 'true') {
       console.log('run IF DARKTHEME = TRUE')
-
       root.classList.add('dark')
       localStorage.setItem('theme', 'true')
     }
@@ -65,6 +65,10 @@ function App() {
     setScore(0)
     setResult(undefined)
     setUserAnswer('')
+    // clear focus (continuously playable with TAB)
+    if (answerOptionsRef.current) {
+      answerOptionsRef.current.focus()
+    }
   }
 
   const getRandomColor = () => '#' + Math.floor(Math.random() * 16_777_215).toString(16)
@@ -100,6 +104,12 @@ function App() {
           scoreRef.current.style.color = 'rgb(19, 206, 19)'
         }
         setGameColors() // update game -> set new colors after correct answer
+
+        // clear focus after correct guess (continuously playable with TAB)
+        if (answerOptionsRef.current) {
+          answerOptionsRef.current.focus()
+        }
+
         // return/show message
         return <p className='correct'>Correct {color}</p>
       } else {
@@ -158,15 +168,14 @@ function App() {
         </p>
       </div>
       <div className='color' style={{ backgroundColor: `${color ? color : 'pink'}` }} />
-
       <div className='result' aria-live='polite' aria-atomic='true'>
         {result}
       </div>
-
-      <div className='options'>
+      <form className='options' tabIndex={-1} ref={answerOptionsRef}>
         {options.map((answerOption) => (
           <button
             key={answerOption}
+            type='button' // prevent form default reset not type submit
             onClick={(e) => {
               setUserAnswer(answerOption)
             }}
@@ -174,7 +183,7 @@ function App() {
             {answerOption}
           </button>
         ))}
-      </div>
+      </form>
     </div>
   )
 }

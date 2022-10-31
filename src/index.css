@@ -55,7 +55,11 @@ button:hover {
   /* border-color: #646cff; */
   border-color: #747bff;
 }
-button:focus,
+button:focus {
+  /* prevent flashing click on button when reset focus -> because starts new round */
+  outline: none;
+}
+/* button:focus, */
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
