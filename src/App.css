@@ -32,14 +32,11 @@
   }
 } */
 
-.App {
-  position: relative;
-}
-
 .title {
   text-transform: uppercase;
   font-size: 2.4rem;
   letter-spacing: 3px;
+  margin-top: 3rem;
 }
 
 /*
@@ -47,6 +44,12 @@
       Game Score
 **********************
 */
+.score-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 .score {
   font-weight: 700;
   font-size: 1.3rem;
@@ -96,12 +99,19 @@
 .result {
   font-weight: 600;
   font-size: 2rem;
+  margin-top: 2rem;
+  min-height: 2rem;
+}
+.result p {
+  margin: 0;
 }
 .correct {
-  color: rgb(19, 206, 19);
+  /* !important overwrite theme text color set by body * ? TODO fix/cleanup */
+  color: rgb(19, 206, 19) !important;
 }
 .wrong {
-  color: red;
+  /* !important overwrite theme text color set by body *? TODO fix/cleanup */
+  color: red !important;
 }
 
 /*
@@ -111,8 +121,5 @@
 */
 .reset {
   position: absolute;
-  top: 44rem;
-  right: 2rem;
-  display: block;
-  margin-left: auto;
+  margin-left: 1rem;
 }

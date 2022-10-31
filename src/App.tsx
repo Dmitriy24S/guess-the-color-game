@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './App.css'
 
 function App() {
@@ -6,11 +6,59 @@ function App() {
   const [options, setOptions] = useState<string[]>([])
   const [userAnswer, setUserAnswer] = useState<string>('')
   const [score, setScore] = useState(0)
-  const [result, setResult] = useState<JSX.Element | undefined>()
-
   const scoreRef = useRef<HTMLParagraphElement>(null)
-  // const answerOptionsRef = useRef<HTMLDivElement>(null)
-  const answerOptionsRef = useRef<HTMLFormElement>(null)
+  const [result, setResult] = useState<JSX.Element | undefined>()
+  const [darkTheme, setDarkTheme] = useState(localStorage.getItem('theme'))
+  const root = document.getElementsByTagName('html')[0]
+
+  console.log(
+    'localStorage.getItem:',
+    localStorage.getItem('theme'),
+    'boolean:',
+    Boolean(localStorage.getItem('theme')),
+    111111
+  )
+  console.log({ darkTheme }) // {darkTheme: false}
+
+  // Apple app/website theme (light/dark theme)
+  const applyTheme = () => {
+    // check system preference:
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    console.log({ prefersDark }) // prefersDark: false
+    // check saved app/website theme preference:
+    const localDarkTheme = localStorage.getItem('theme')
+    console.log({ localDarkTheme }) // localTheme: null
+
+    // if system preference dark theme and have not set app/website theme (e.g. first time visit) -> set dark theme
+    if (prefersDark && localDarkTheme == null) {
+      console.log('run prefersDark && localDarkTheme == null')
+      localStorage.setItem('theme', 'true')
+      root.classList.add('dark')
+    }
+  }
+
+  // Set app/page theme on page load (paints the app before it renders elements)
+  useLayoutEffect(() => {
+    console.log('LAYOUT EFFECT')
+    applyTheme()
+  }, [])
+
+  // Toggle theme on theme state change (toggle button)
+  useEffect(() => {
+    // if currently on dark theme -> switch to light theme
+    if (darkTheme === 'true') {
+      console.log('run IF DARKTHEME = TRUE')
+
+      root.classList.add('dark')
+      localStorage.setItem('theme', 'true')
+    }
+    // if currently on light theme -> switch to dark theme
+    if (darkTheme === 'false') {
+      console.log('run IF DARKTHEME = FALSE')
+      root.classList.remove('dark')
+      localStorage.setItem('theme', 'false')
+    }
+  }, [darkTheme])
 
   const resetGame = () => {
     setGameColors()
@@ -86,14 +134,39 @@ function App() {
 
   return (
     <div className='App'>
+      <button
+        className='dark-mode-toggle'
+        onClick={() => {
+          // if currently on dark theme -> switch to light theme
+          if (darkTheme === 'true') {
+            setDarkTheme('false')
+          } else {
+            // if currently on dark theme -> switch to light theme
+            setDarkTheme('true')
+          }
+        }}
+      >
+        Dark mode
+      </button>
       <h1 className='title'>Guess the color</h1>
-      <p className='score' ref={scoreRef}>
-        Score: {score}
-      </p>
+      <div className='score-container'>
+        <button onClick={resetGame} className='reset' tabIndex={0}>
+          Reset
+        </button>
+        <p className='score' ref={scoreRef}>
+          Score: {score}
+        </p>
+      </div>
       <div className='color' style={{ backgroundColor: `${color ? color : 'pink'}` }} />
+
+      <div className='result' aria-live='polite' aria-atomic='true'>
+        {result}
+      </div>
+
       <div className='options'>
         {options.map((answerOption) => (
           <button
+            key={answerOption}
             onClick={(e) => {
               setUserAnswer(answerOption)
             }}
@@ -102,10 +175,6 @@ function App() {
           </button>
         ))}
       </div>
-      <div className='result'>{result}</div>
-      <button onClick={resetGame} className='reset'>
-        Reset
-      </button>
     </div>
   )
 }
