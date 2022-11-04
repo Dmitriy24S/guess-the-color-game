@@ -4,7 +4,7 @@
   line-height: 24px;
   font-weight: 400;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   /* color: rgba(255, 255, 255, 0.87); */
   /* background-color: #242424; */
   color: #213547;
@@ -46,6 +46,8 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
+  color: inherit;
+  /* ! this or .dark body * color set (only .dark does not work -> dark mode + keeps dark text) */
   /* background-color: #1a1a1a; */
   background-color: #f9f9f9;
   cursor: pointer;
@@ -65,11 +67,11 @@ button:focus-visible {
 }
 
 /*
-****************************************************************
-       Dark Theme
-****************************************************************
+*****************************
+        Dark Theme
+*****************************
 */
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
@@ -80,22 +82,16 @@ button:focus-visible {
   button {
     background-color: #1a1a1a;
   }
-}
+} */
 
-/*
-*****************************************************************
-       Dark Theme (for toggle outside system preference)
-*****************************************************************
-*/
 .dark {
   background-color: #242424;
-}
-.dark body * {
   color: rgba(255, 255, 255, 0.87);
 }
-.dark * a:hover {
-  border-color: #646cff;
-}
-.dark * button {
+.dark button {
   background-color: #1a1a1a;
+}
+.dark a:hover,
+.dark button:hover {
+  border-color: #646cff;
 }
