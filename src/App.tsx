@@ -80,7 +80,10 @@ function App() {
     }
   }
 
-  const getRandomColor = () => '#' + Math.floor(Math.random() * 16_777_215).toString(16)
+  // const getRandomColor = () => '#' + Math.floor(Math.random() * 16_777_215).toString(16)
+  // ! when random returns 0.00001 the result is "#000a7" (invalid color - 5 digits) ?
+  const getRandomColor = () =>
+    '#' + (Math.random().toString(16) + '000000').substring(2, 8)
 
   const setGameColors = () => {
     // Set question color:
@@ -203,7 +206,9 @@ function App() {
           </button>
         ))}
       </form>
-      {correctAnswerList.length > 0 && <CorrectAnswerList correctAnswerList={correctAnswerList} />}
+      {correctAnswerList.length > 0 && (
+        <CorrectAnswerList correctAnswerList={correctAnswerList} />
+      )}
     </div>
   )
 }
