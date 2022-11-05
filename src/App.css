@@ -109,6 +109,15 @@
 .correct {
   /* !important overwrite theme text color set by body * ? TODO fix/cleanup */
   color: rgb(19, 206, 19) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.correct-color-block {
+  display: inline;
+  min-height: 2rem;
+  min-width: 2rem;
 }
 .wrong {
   /* !important overwrite theme text color set by body *? TODO fix/cleanup */

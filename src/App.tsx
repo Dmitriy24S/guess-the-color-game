@@ -111,7 +111,12 @@ function App() {
         }
 
         // return/show message
-        return <p className='correct'>Correct {color}</p>
+        return (
+          <p className='correct'>
+            Correct {color}
+            <span className='correct-color-block' style={{ backgroundColor: color }} />
+          </p>
+        )
       } else {
         // If wrong answer:
         if (scoreRef.current) {
@@ -134,7 +139,8 @@ function App() {
         // scoreRef.current.style.color = 'inherit'
         scoreRef.current.style.color = 'rgb(184, 178, 178)'
       }
-    }, 1500)
+      // }, 1500)
+    }, 3500)
 
     // Cleanup result text message timeout:
     return () => {
