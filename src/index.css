@@ -95,3 +95,6 @@ button:focus-visible {
 .dark button:hover {
   border-color: #646cff;
 }
+.dark .correct-answer-list {
+  border: 1px solid #474747;
+}

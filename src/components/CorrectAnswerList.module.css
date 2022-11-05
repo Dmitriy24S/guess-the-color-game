@@ -1,0 +1,27 @@
+.correctAnswerList {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.8rem, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  margin-bottom: 5rem;
+}
+
+/* ! not work? module style css */
+/* .dark .correctAnswerList {
+  border: 1px solid #474747;
+} */
+
+.answer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* with different lenght of color string not even color block placement compared to each other */
+  justify-content: space-between;
+  width: 7.8rem;
+  margin: 0 auto;
+}

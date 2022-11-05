@@ -1,25 +1,33 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './App.css'
+import CorrectAnswerList from './components/CorrectAnswerList'
 
 function App() {
   const [color, setColor] = useState<string>('')
   const [options, setOptions] = useState<string[]>([])
+
   const [userAnswer, setUserAnswer] = useState<string>('')
   const answerOptionsRef = useRef<HTMLFormElement>(null)
+  const [correctAnswerList, setCorrectAnswerList] = useState<string[]>([])
+
   const [score, setScore] = useState(0)
   const scoreRef = useRef<HTMLParagraphElement>(null)
+
   const [result, setResult] = useState<JSX.Element | undefined>()
+
   const [darkTheme, setDarkTheme] = useState(localStorage.getItem('theme'))
   const root = document.getElementsByTagName('html')[0]
 
-  console.log(
-    'localStorage.getItem:',
-    localStorage.getItem('theme'),
-    'boolean:',
-    Boolean(localStorage.getItem('theme')),
-    111111
-  )
-  console.log({ darkTheme }) // {darkTheme: false}
+  useEffect(() => {
+    console.log(
+      'localStorage.getItem:',
+      localStorage.getItem('theme'),
+      'boolean:',
+      Boolean(localStorage.getItem('theme')),
+      111111
+    )
+    console.log({ darkTheme }) // {darkTheme: false}
+  }, [])
 
   // Apple app/website theme (light/dark theme)
   const applyTheme = () => {
@@ -65,6 +73,7 @@ function App() {
     setScore(0)
     setResult(undefined)
     setUserAnswer('')
+    setCorrectAnswerList([])
     // clear focus (continuously playable with TAB)
     if (answerOptionsRef.current) {
       answerOptionsRef.current.focus()
@@ -99,6 +108,9 @@ function App() {
       // return userAnswer === color ? <p className='correct'>Correct</p> : <p className='wrong'>Wrong Answer</p>;
       if (userAnswer === color) {
         // If correct answer:
+        // add answer to answer list
+        setCorrectAnswerList((currentList) => [...currentList, userAnswer])
+        // update score and score color
         setScore((prev) => prev + 1)
         if (scoreRef.current) {
           scoreRef.current.style.color = 'rgb(19, 206, 19)'
@@ -110,7 +122,7 @@ function App() {
           answerOptionsRef.current.focus()
         }
 
-        // return/show message
+        // return/show result message component
         return (
           <p className='correct'>
             Correct {color}
@@ -119,11 +131,12 @@ function App() {
         )
       } else {
         // If wrong answer:
+        // update score and score color
+        setScore((prev) => prev - 1)
         if (scoreRef.current) {
           scoreRef.current.style.color = 'red'
         }
-        setScore((prev) => prev - 1)
-        // return/show message
+        // return/show result message component
         return <p className='wrong'>Wrong Answer</p>
       }
     }
@@ -173,7 +186,7 @@ function App() {
           Score: {score}
         </p>
       </div>
-      <div className='color' style={{ backgroundColor: `${color ? color : 'pink'}` }} />
+      <div className='color' style={{ backgroundColor: `${color ? color : ''}` }} />
       <div className='result' aria-live='polite' aria-atomic='true'>
         {result}
       </div>
@@ -190,6 +203,7 @@ function App() {
           </button>
         ))}
       </form>
+      {correctAnswerList.length > 0 && <CorrectAnswerList correctAnswerList={correctAnswerList} />}
     </div>
   )
 }
