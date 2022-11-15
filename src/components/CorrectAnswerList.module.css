@@ -1,3 +1,12 @@
+.title {
+  width: 85%;
+  text-align: start;
+  /* margin-left: 2rem; */
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+  color: #b6b6b6;
+}
+
 .correctAnswerList {
   list-style-type: none;
   display: grid;

@@ -7,14 +7,17 @@ interface Props {
 
 const CorrectAnswerList = ({ correctAnswerList }: Props) => {
   return (
-    <ul className={`correct-answer-list ${styles.correctAnswerList}`}>
-      {correctAnswerList.map((answer) => (
-        <li className={styles.answer}>
-          {answer}{' '}
-          <span className='correct-color-block' style={{ backgroundColor: answer }} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <h4 className={styles.title}>Previous Colors</h4>
+      <ul className={`correct-answer-list ${styles.correctAnswerList}`}>
+        {correctAnswerList.map((answer) => (
+          <li className={styles.answer}>
+            {answer}{' '}
+            <span className='correct-color-block' style={{ backgroundColor: answer }} />
+          </li>
+        ))}
+      </ul>
+    </>
   )
 }
 
